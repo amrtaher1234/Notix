@@ -17,7 +17,7 @@ Window {
 	TitleBar {
 		id: title_bar
 		anchors.top: parent.top
-		height: 20
+        height: 25
 		container: root
 	}
 
