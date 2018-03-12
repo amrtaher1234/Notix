@@ -9,7 +9,6 @@ Rectangle {
     height:25
     color: "#feff9c" // just random one
 
-
 	property QtObject container
 
 
