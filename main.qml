@@ -24,7 +24,10 @@ Window {
 	TextArea {
 		id: text_area
 		anchors.top: title_bar.bottom
-		frameVisible: false
+        width: parent.width
+        height: parent.height-25
+        wrapMode: Text.WrapAnywhere
+        frameVisible: false
 		Keys.onReleased: notes_model.text_changed(uuid, this.text)
 		style: TextAreaStyle {
 			textColor: "#333"
