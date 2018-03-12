@@ -6,6 +6,7 @@
 
 #include "notesmodel.h"
 #include "cursorposprovider.h"
+#include "notesadder.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,14 +15,16 @@ int main(int argc, char *argv[])
 	QGuiApplication app(argc, argv);
 	NotesModel notes_model;
 	CursorPosProvider mouse_pos_provider;
-
 	QStringList note_names = notes_model.get_all_note_names();
 	QVector<QObject*> notes;
 
 
 	// Using QQmlComponent
 	QQmlEngine engine;
+	NotesAdder notes_adder(&engine);
+
 	engine.rootContext()->setContextProperty("notes_model", &notes_model);
+	engine.rootContext()->setContextProperty("notes_adder", &notes_adder);
 	engine.rootContext()->setContextProperty("mouse_position", &mouse_pos_provider);
 
 	for(QString note_name : note_names)
@@ -37,7 +40,7 @@ int main(int argc, char *argv[])
 	{
 		QQmlComponent component(&engine, QUrl("qrc:/main.qml"));
 		QObject* note = component.create();
-		note->setProperty("uuid", notes_model.generate_id());
+		note->setProperty("uuid", NotesModel::generate_id());
 		notes.push_back(note);
 	}
 

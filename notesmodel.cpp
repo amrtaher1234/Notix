@@ -17,7 +17,6 @@ NotesModel::NotesModel(QObject *parent) : QObject(parent)
 
 void NotesModel::text_changed(const QString& uuid, const QString& new_text)
 {
-	qDebug() << uuid + " " + new_text + "\n";
 	QFile file(storage_location + uuid);
 	file.open(QIODevice::WriteOnly | QIODevice::Text);
 

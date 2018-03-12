@@ -5,7 +5,7 @@ import QtQuick.Controls.Styles 1.4
 
 Window {
 	id: root
-	property var uuid: ""
+	property string uuid: ""
 	property alias text: text_area.text
 	flags: Qt.FramelessWindowHint
 	visible: true

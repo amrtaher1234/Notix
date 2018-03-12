@@ -39,9 +39,7 @@ Rectangle {
 		text: qsTr("+")
 
 		onClicked: {
-			var component = Qt.createComponent("main.qml")
-			var window    = component.createObject(root)
-			window.show()
+			notes_adder.create_new_note();
 		}
 	}
 }
