@@ -7,16 +7,23 @@ Window {
 	id: root
 	property var uuid: ""
 	property alias text: text_area.text
-	//flags: Qt.FramelessWindowHint
+	flags: Qt.FramelessWindowHint
 	visible: true
 	width: 300
 	height: 300
 	color: "#feff9c"
 	title: qsTr("Notix")
+
+	TitleBar {
+		id: title_bar
+		anchors.top: parent.top
+		height: 20
+		container: root
+	}
+
 	TextArea {
 		id: text_area
-		anchors.fill: parent
-		anchors.margins: 1
+		anchors.top: title_bar.bottom
 		frameVisible: false
 		Keys.onReleased: notes_model.text_changed(uuid, this.text)
 		style: TextAreaStyle {
@@ -28,21 +35,13 @@ Window {
 		text: "";
 	}
 
-	Button {
-		anchors.centerIn: parent
-		text: qsTr("+")
 
-		onClicked: {
-			var component = Qt.createComponent("main.qml")
-			var window    = component.createObject(root)
-			window.show()
-		}
-	}
 	Component.onCompleted: {
 		if(uuid == "")
 		{
 			uuid = notes_model.generate_id();
 		}
 	}
+
 }
 
