@@ -2,18 +2,20 @@ import QtQuick 2.9
 import QtQuick.Controls 2.3
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls 1.4
+import QtQuick.Dialogs 1.1
+import QtQuick 2.2
 
 Rectangle {
 	id: window_header
 	width: parent.width
-    height:25
-    color: "#feff9c" // just random one
+	height:25
+	color: "#feff9c" // just random one
 
 	property QtObject container
 
 
 
-    TextField{
+    TextField {
         id : txt_title
         height: 25
         width: parent.width-close_btn.width-add_btn.width
@@ -22,20 +24,21 @@ Rectangle {
         text: "Notix"
 
         style: TextFieldStyle {
-            textColor: "steelblue"
-            selectionColor: "steelblue"
-            selectedTextColor: "#eee"
-            background: Rectangle { color: "#feff9c" }
+		textColor: "steelblue"
+		selectionColor: "steelblue"
+		selectedTextColor: "#eee"
+		background: Rectangle { color: "#feff9c" }
         }
     }
+    
     MouseArea {
         id: titleBarMouseRegion
         property var clickPos
         anchors.fill: parent
         width: parent.width-close_btn.width-add_btn.width
-        height: 25
-        onPressed: {
-            clickPos = { x: mouse.x, y: mouse.y }
+	height: 25
+	onPressed: {
+		clickPos = { x: mouse.x, y: mouse.y }
         }
         onDoubleClicked: {
             txt_title.focus=true
@@ -62,8 +65,31 @@ Rectangle {
             }
 
 
-        onClicked: container.close()
+        onClicked:
+            if (text_area.text=="")
+                 container.close()
+            else{
+                message_dialog.open()
+            }
+
 	}
+
+
+    MessageDialog {
+        id: message_dialog
+        title: "Delete Note"
+        text: "Are you sure you want to delete the note?"
+        standardButtons: StandardButton.Yes | StandardButton.No
+
+        onYes: {
+            container.close()
+        }
+        onNo: {
+
+        }
+
+        Component.onCompleted: visible = false
+     }
 
     Button {
         id: add_btn

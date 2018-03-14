@@ -30,10 +30,14 @@ int main(int argc, char *argv[])
 	for(QString note_name : note_names)
 	{
 		QQmlComponent component(&engine, QUrl("qrc:/main.qml"));
-		QObject *note = component.create();
-		note->setProperty("uuid", note_name);
-		note->setProperty("text", notes_model.load_note(note_name));
-		notes.push_back(note);
+        if (!notes_model.load_note(note_name).trimmed().isEmpty()){
+            QObject *note = component.create();
+            note->setProperty("uuid", note_name);
+            note->setProperty("text", notes_model.load_note(note_name));
+            notes.push_back(note);
+        }
+
+
 	}
 
 	if(!notes.size())
@@ -41,7 +45,7 @@ int main(int argc, char *argv[])
 		QQmlComponent component(&engine, QUrl("qrc:/main.qml"));
 		QObject* note = component.create();
 		note->setProperty("uuid", NotesModel::generate_id());
-		notes.push_back(note);
+        notes.push_back(note);
 	}
 
 	return app.exec();
