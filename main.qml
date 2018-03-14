@@ -18,17 +18,17 @@ Window {
 	TitleBar {
 		id: title_bar
 		anchors.top: parent.top
-        height: 25
+		height: 25
 		container: root
 	}
 
 	TextArea {
 		id: text_area
 		anchors.top: title_bar.bottom
-        width: parent.width
-        height: parent.height-25
-        wrapMode: Text.WrapAnywhere
-        frameVisible: false
+		width: parent.width
+		height: parent.height-25
+		wrapMode: Text.WrapAnywhere
+		frameVisible: false
 		Keys.onReleased: notes_model.text_changed(uuid, this.text)
 		style: TextAreaStyle {
 			textColor: "#333"
@@ -39,25 +39,18 @@ Window {
 		text: "";
 
 
-        MouseArea {
-            anchors.fill: parent
-            acceptedButtons: Qt.RightButton
-            onClicked: {
+		MouseArea {
+			anchors.fill: parent
+			acceptedButtons: Qt.RightButton
+			onClicked: {
 
-                if (mouse.button === Qt.RightButton)
-                {
-                               contextMenu.menus
-                }
-            }
-
-
-
-
-
-
-        }
+				if (mouse.button === Qt.RightButton)
+				{
+					contextMenu.menus
+				}
+			}
+		}
 	}
-
 
 	Component.onCompleted: {
 		if(uuid == "")
@@ -65,6 +58,5 @@ Window {
 			uuid = notes_model.generate_id();
 		}
 	}
-
 }
 
