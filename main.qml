@@ -1,3 +1,4 @@
+import QtQuick.Controls 2.3
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
@@ -36,6 +37,25 @@ Window {
 			backgroundColor: "#feff9c"
 		}
 		text: "";
+
+
+        MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.RightButton
+            onClicked: {
+
+                if (mouse.button === Qt.RightButton)
+                {
+                               contextMenu.menus
+                }
+            }
+
+
+
+
+
+
+        }
 	}
 
 

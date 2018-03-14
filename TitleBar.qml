@@ -2,6 +2,8 @@ import QtQuick 2.9
 import QtQuick.Controls 2.3
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls 1.4
+import QtQuick.Dialogs 1.1
+import QtQuick 2.2
 
 Rectangle {
 	id: window_header
@@ -62,8 +64,31 @@ Rectangle {
             }
 
 
-        onClicked: container.close()
+        onClicked:
+            if (text_area.text=="")
+                 container.close()
+            else{
+                messageDialog.open()
+            }
+
 	}
+
+
+    MessageDialog {
+        id: messageDialog
+        title: "Closing the note"
+        text: "Do you want to close the note ?"
+        standardButtons: StandardButton.Yes| StandardButton.No
+
+        onYes: {
+            container.close()
+        }
+        onNo: {
+
+        }
+
+        Component.onCompleted: visible = false
+     }
 
     Button {
         id: add_btn
