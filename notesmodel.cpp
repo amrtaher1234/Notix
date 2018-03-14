@@ -40,3 +40,9 @@ QString NotesModel::load_note(const QString& uuid)
 	file.open(QIODevice::ReadOnly | QIODevice::Text);
 	return file.readAll();
 }
+
+void NotesModel::delete_note(const QString& uuid)
+{
+	QFile file(storage_location + uuid);
+	file.remove();
+}

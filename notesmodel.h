@@ -15,6 +15,7 @@ public:
 	Q_INVOKABLE static QString generate_id();
 	QStringList get_all_note_names();
 	Q_INVOKABLE QString load_note(const QString& uuid);
+	Q_INVOKABLE void delete_note(const QString& uuid);
 
 signals:
 

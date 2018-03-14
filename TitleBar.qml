@@ -15,99 +15,102 @@ Rectangle {
 
 
 
-    TextField {
-        id : txt_title
-        height: 25
-        width: parent.width-close_btn.width-add_btn.width
-        anchors.margins: 3
-        anchors.left: window_header.left
-        text: "Notix"
+	TextField {
+		id : txt_title
+		height: 25
+		width: parent.width-close_btn.width-add_btn.width
+		anchors.margins: 3
+		anchors.left: window_header.left
+		text: "Notix"
 
-        style: TextFieldStyle {
-		textColor: "steelblue"
-		selectionColor: "steelblue"
-		selectedTextColor: "#eee"
-		background: Rectangle { color: "#feff9c" }
-        }
-    }
-    
-    MouseArea {
-        id: titleBarMouseRegion
-        property var clickPos
-        anchors.fill: parent
-        width: parent.width-close_btn.width-add_btn.width
-	height: 25
-	onPressed: {
-		clickPos = { x: mouse.x, y: mouse.y }
-        }
-        onDoubleClicked: {
-            txt_title.focus=true
-        }
+		style: TextFieldStyle {
+			textColor: "steelblue"
+			selectionColor: "steelblue"
+			selectedTextColor: "#eee"
+			background: Rectangle { color: "#feff9c" }
+		}
+	}
 
-        onPositionChanged: {
-            container.x = mouse_position.cursor_pos().x - clickPos.x
-            container.y = mouse_position.cursor_pos().y - clickPos.y
-        }
-    }
+	MouseArea {
+		id: titleBarMouseRegion
+		property var clickPos
+		anchors.fill: parent
+		width: parent.width-close_btn.width-add_btn.width
+		height: 25
+		onPressed: {
+			clickPos = { x: mouse.x, y: mouse.y }
+		}
+		onDoubleClicked: {
+			txt_title.focus=true
+		}
+
+		onPositionChanged: {
+			container.x = mouse_position.cursor_pos().x - clickPos.x
+			container.y = mouse_position.cursor_pos().y - clickPos.y
+		}
+	}
 	Button {
 		id: close_btn
-        width: 50
-        height: 25
-        anchors.right: window_header.right
+		width: 50
+		height: 25
+		anchors.right: window_header.right
 		text: "x"
-        style: ButtonStyle {
-                background: Rectangle {
-                    gradient: Gradient {
-                        GradientStop { position: 0 ; color: control.pressed ? "#fff" : "#feff9c" }
-                        GradientStop { position: 1 ; color: control.pressed ? "#fff" : "#feff9c" }
-                    }
-                }
-            }
+		style: ButtonStyle {
+			background: Rectangle {
+				gradient: Gradient {
+					GradientStop { position: 0 ; color: control.pressed ? "#fff" : "#feff9c" }
+					GradientStop { position: 1 ; color: control.pressed ? "#fff" : "#feff9c" }
+				}
+			}
+		}
 
 
-        onClicked:
-            if (text_area.text=="")
-                 container.close()
-            else{
-                message_dialog.open()
-            }
+		onClicked:
+			if (text_area.text == "")	{
+				notes_model.delete_note(uuid)
+				container.close()
+			}
+			else{
+				message_dialog.open()
+			}
 
 	}
 
 
-    MessageDialog {
-        id: message_dialog
-        title: "Delete Note"
-        text: "Are you sure you want to delete the note?"
-        standardButtons: StandardButton.Yes | StandardButton.No
+	MessageDialog {
+		id: message_dialog
+		title: "Delete Note"
+		text: "Are you sure you want to delete the note?"
+		standardButtons: StandardButton.Yes | StandardButton.No
 
-        onYes: {
-            container.close()
-        }
-        onNo: {
+		onYes: {
+			notes_model.delete_note(uuid)
+			container.close()
+		}
+		onNo: {
 
-        }
+		}
 
-        Component.onCompleted: visible = false
-     }
+		Component.onCompleted: visible = false
+	}
 
-    Button {
-        id: add_btn
-        width: 50
-        height: 25
-        anchors.right: close_btn.left
+	Button {
+		id: add_btn
+		width: 50
+		height: 25
+		anchors.right: close_btn.left
 
-        text: "+"
-        style: ButtonStyle {
-                background: Rectangle {
-                    gradient: Gradient {
-                        GradientStop { position: 0 ; color: control.pressed ? "#fff" : "#feff9c" }
-                        GradientStop { position: 1 ; color: control.pressed ? "#fff" : "#feff9c" }
-                    }
-                }
-            }
+		text: "+"
+		style: ButtonStyle {
+			background: Rectangle {
+				gradient: Gradient {
+					GradientStop { position: 0 ; color: control.pressed ? "#fff" : "#feff9c" }
+					GradientStop { position: 1 ; color: control.pressed ? "#fff" : "#feff9c" }
+				}
+			}
+		}
 		onClicked: {
 			notes_adder.create_new_note();
 		}
-    }
+	}
 }
