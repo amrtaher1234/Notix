@@ -66,7 +66,7 @@ Rectangle {
 
 
 		onClicked:
-			if (text_area.text == "")	{
+			if (text_area.text.trim() == "")	{
 				notes_model.delete_note(uuid)
 				container.close()
 			}
