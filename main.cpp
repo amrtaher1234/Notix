@@ -3,6 +3,7 @@
 #include <QQmlComponent>
 #include <QQmlContext>
 #include <QVector>
+#include <QDebug>
 
 #include "notesmodel.h"
 #include "cursorposprovider.h"
@@ -36,6 +37,12 @@ int main(int argc, char *argv[])
 		}
 
 		QQmlComponent component(&engine, QUrl("qrc:/main.qml"));
+		if( component.status() != component.Ready )
+		{
+			if( component.status() == component.Error )
+				qInfo() << "Error: "+ component.errorString();
+			return 1;
+		}
 		QObject *note = component.create();
 		note->setProperty("uuid", note_name);
 		note->setProperty("text", note_text);
@@ -45,6 +52,12 @@ int main(int argc, char *argv[])
 	if(!notes.size())
 	{
 		QQmlComponent component(&engine, QUrl("qrc:/main.qml"));
+		if( component.status() != component.Ready )
+		{
+			if( component.status() == component.Error )
+				qInfo() << "Error: "+ component.errorString();
+			return 1;
+		}
 		QObject* note = component.create();
 		note->setProperty("uuid", NotesModel::generate_id());
 		notes.push_back(note);
