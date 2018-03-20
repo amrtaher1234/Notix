@@ -9,6 +9,7 @@ class NotesModel : public QObject
 	Q_OBJECT
 
 	QString storage_location;
+	static int x, y, pos_offset;
 public:
 	explicit NotesModel(QObject *parent = nullptr);
 	Q_INVOKABLE void text_changed(const QString& uuid, const QString& new_text);
@@ -16,6 +17,9 @@ public:
 	QStringList get_all_note_names();
 	Q_INVOKABLE QString load_note(const QString& uuid);
 	Q_INVOKABLE void delete_note(const QString& uuid);
+
+	Q_INVOKABLE static int get_next_x_pos();
+	Q_INVOKABLE static int get_next_y_pos();
 
 signals:
 

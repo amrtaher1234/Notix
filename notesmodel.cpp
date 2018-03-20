@@ -6,6 +6,10 @@
 #include <QDebug>
 #include <QUuid>
 
+int NotesModel::x = 550;
+int NotesModel::y = 200;
+int NotesModel::pos_offset = 10;
+
 NotesModel::NotesModel(QObject *parent) : QObject(parent)
 {
 	QString config_location = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + '/';
@@ -32,6 +36,20 @@ QStringList NotesModel::get_all_note_names()
 {
 	QDir dir(storage_location);
 	return dir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries);;
+}
+
+int NotesModel::get_next_x_pos()
+{
+	int to_return = x + pos_offset;
+	x += pos_offset;
+	return to_return;
+}
+
+int NotesModel::get_next_y_pos()
+{
+	int to_return = y + pos_offset;
+	y += pos_offset;
+	return to_return;
 }
 
 QString NotesModel::load_note(const QString& uuid)

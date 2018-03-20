@@ -7,11 +7,15 @@ import QtQuick.Controls.Styles 1.4
 Window {
 	id: root
 	property string uuid: ""
+	property int xPos: -1
+	property int yPos: -1
 	property alias text: text_area.text
 	flags: Qt.FramelessWindowHint
 	visible: true
 	width: 300
 	height: 300
+	x: xPos
+	y: yPos
 	color: "#feff9c"
 	title: qsTr("Notix")
 
@@ -57,6 +61,13 @@ Window {
 		{
 			uuid = notes_model.generate_id();
 		}
+		if (xPos == -1)
+		{
+			x = notes_model.get_next_x_pos();
+		}
+		if (yPos == -1)
+		{
+			yPos = notes_model.get_next_y_pos();
+		}
 	}
 }
-
