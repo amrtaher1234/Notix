@@ -93,7 +93,7 @@ void NotesController::create_new_note()
 
 void NotesController::create_new_note_view(Note note)
 {
-	QQmlComponent component(&m_qml_engine, QUrl("qrc:/main.qml"));
+	QQmlComponent component(&m_qml_engine, QUrl("qrc:/NoteView.qml"));
 	if( component.status() != component.Ready )
 	{
 		if( component.status() == component.Error )
