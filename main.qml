@@ -1,4 +1,3 @@
-import QtQuick.Controls 2.2
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
@@ -33,7 +32,7 @@ Window {
 		height: parent.height-25
 		wrapMode: Text.WrapAnywhere
 		frameVisible: false
-		Keys.onReleased: notes_model.text_changed(uuid, this.text)
+		Keys.onReleased: notes_controller.text_changed(uuid, this.text)
 		style: TextAreaStyle {
 			textColor: "#333"
 			selectionColor: "steelblue"
@@ -59,15 +58,15 @@ Window {
 	Component.onCompleted: {
 		if(uuid == "")
 		{
-			uuid = notes_model.generate_id();
+			uuid = notes_controller.generate_id();
 		}
 		if (xPos == -1)
 		{
-			x = notes_model.get_next_x_pos();
+			x = notes_controller.get_next_x_pos();
 		}
 		if (yPos == -1)
 		{
-			yPos = notes_model.get_next_y_pos();
+			yPos = notes_controller.get_next_y_pos();
 		}
 	}
 }

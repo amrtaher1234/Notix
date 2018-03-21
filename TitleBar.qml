@@ -13,8 +13,6 @@ Rectangle {
 
 	property QtObject container
 
-
-
 	TextField {
 		id : txt_title
 		height: 25
@@ -49,6 +47,7 @@ Rectangle {
 			container.y = mouse_position.cursor_pos().y - clickPos.y
 		}
 	}
+
 	Button {
 		id: close_btn
 		width: 50
@@ -64,18 +63,15 @@ Rectangle {
 			}
 		}
 
-
 		onClicked:
-			if (text_area.text.trim() == "")	{
-				notes_model.delete_note(uuid)
+			if (text_area.text.trim() === "")	{
+				notes_controller.delete_note(uuid)
 				container.close()
 			}
 			else{
 				message_dialog.open()
 			}
-
 	}
-
 
 	MessageDialog {
 		id: message_dialog
@@ -84,7 +80,7 @@ Rectangle {
 		standardButtons: StandardButton.Yes | StandardButton.No
 
 		onYes: {
-			notes_model.delete_note(uuid)
+			notes_controller.delete_note(uuid)
 			container.close()
 		}
 		onNo: {
@@ -110,7 +106,7 @@ Rectangle {
 			}
 		}
 		onClicked: {
-			notes_adder.create_new_note();
+			notes_controller.create_new_note();
 		}
 	}
 }
