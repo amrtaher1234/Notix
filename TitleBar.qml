@@ -12,6 +12,7 @@ Rectangle {
 	color: "#feff9c" // just random one
 
 	property QtObject container
+	property alias title_text: txt_title.text
 
 	TextField {
 		id : txt_title
@@ -27,6 +28,8 @@ Rectangle {
 			selectedTextColor: "#eee"
 			background: Rectangle { color: "#feff9c" }
 		}
+
+		Keys.onReleased: notes_controller.title_changed(uuid, text)
 	}
 
 	MouseArea {
@@ -39,12 +42,13 @@ Rectangle {
 			clickPos = { x: mouse.x, y: mouse.y }
 		}
 		onDoubleClicked: {
-			txt_title.focus=true
+			txt_title.focus = true
 		}
 
 		onPositionChanged: {
 			container.x = mouse_position.cursor_pos().x - clickPos.x
 			container.y = mouse_position.cursor_pos().y - clickPos.y
+			notes_controller.position_changed(uuid, container.x, container.y)
 		}
 	}
 

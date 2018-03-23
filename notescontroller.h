@@ -43,7 +43,7 @@ public:
 
 	Q_INVOKABLE void text_changed(const QString& uuid, const QString& new_text);
 	Q_INVOKABLE void title_changed(const QString& uuid, const QString& new_title);
-	Q_INVOKABLE void position_changed(const QString& uuid, size_t new_x, size_t new_y);
+	Q_INVOKABLE void position_changed(const QString& uuid, int new_x, int new_y);
 
 signals:
 

@@ -9,6 +9,8 @@ Window {
 	property int xPos: -1
 	property int yPos: -1
 	property alias text: text_area.text
+	property alias window_title: title_bar.title_text
+	title: qsTr("Notix")
 	flags: Qt.FramelessWindowHint
 	visible: true
 	width: 300
@@ -16,7 +18,6 @@ Window {
 	x: xPos
 	y: yPos
 	color: "#feff9c"
-	title: qsTr("Notix")
 
 	TitleBar {
 		id: title_bar

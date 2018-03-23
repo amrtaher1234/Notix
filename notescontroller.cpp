@@ -16,13 +16,13 @@ NotesController::NotesController(QObject *parent) : QObject(parent)
 	for(QString note_name : note_names)
 	{
 		Note note = Note::load(note_name);
+		notes[note.id] = note;
 
 		if (note.text.trimmed().isEmpty()){
 			delete_note(note.id);
 			continue;
 		}
 
-		notes[note.id] = note;
 		create_new_note_view(note);
 	}
 
@@ -46,7 +46,7 @@ void NotesController::title_changed(const QString& uuid, const QString& new_titl
 	note.save();
 }
 
-void NotesController::position_changed(const QString& uuid, size_t new_x, size_t new_y)
+void NotesController::position_changed(const QString& uuid, int new_x, int new_y)
 {
 	Note note = notes[uuid];
 	note.x = new_x;
@@ -103,5 +103,8 @@ void NotesController::create_new_note_view(Note note)
 
 	QObject* note_view = component.create();
 	note_view->setProperty("uuid", note.id);
+	note_view->setProperty("window_title", note.title);
 	note_view->setProperty("text", note.text);
+	note_view->setProperty("x", (uint)note.x);
+	note_view->setProperty("y", (uint)note.y);
 }
