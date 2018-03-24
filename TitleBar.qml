@@ -1,15 +1,13 @@
 import QtQuick 2.9
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.2
 import QtQuick.Controls.Styles 1.4
-import QtQuick.Controls 1.4
 import QtQuick.Dialogs 1.1
-import QtQuick 2.2
 
 Rectangle {
 	id: window_header
 	width: parent.width
 	height:25
-	color: "#feff9c" // just random one
+	color: "#feff9c"
 
 	property QtObject container
 	property alias title_text: txt_title.text
@@ -22,14 +20,12 @@ Rectangle {
 		anchors.left: window_header.left
 		text: "Notix"
 
-		style: TextFieldStyle {
-			textColor: "steelblue"
-			selectionColor: "steelblue"
-			selectedTextColor: "#eee"
-			background: Rectangle { color: "#feff9c" }
-		}
+		color: "steelblue"
+		selectionColor: "steelblue"
+		selectedTextColor: "#eee"
+		background: Rectangle { color: "#feff9c" }
 
-		Keys.onReleased: notes_controller.title_changed(uuid, text)
+		onTextChanged: notes_controller.title_changed(uuid, text)
 	}
 
 	MouseArea {
@@ -58,12 +54,10 @@ Rectangle {
 		height: 25
 		anchors.right: window_header.right
 		text: "x"
-		style: ButtonStyle {
-			background: Rectangle {
-				gradient: Gradient {
-					GradientStop { position: 0 ; color: control.pressed ? "#fff" : "#feff9c" }
-					GradientStop { position: 1 ; color: control.pressed ? "#fff" : "#feff9c" }
-				}
+		background: Rectangle {
+			gradient: Gradient {
+				GradientStop { position: 0 ; color: close_btn.pressed ? "#fff" : "#feff9c" }
+				GradientStop { position: 1 ; color: close_btn.pressed ? "#fff" : "#feff9c" }
 			}
 		}
 
@@ -80,7 +74,7 @@ Rectangle {
 	MessageDialog {
 		id: message_dialog
 		title: "Delete Note"
-		text: "Are you sure you want to delete the note?"
+		text: "Are you sure you want to delete this note?"
 		standardButtons: StandardButton.Yes | StandardButton.No
 
 		onYes: {
@@ -101,12 +95,10 @@ Rectangle {
 		anchors.right: close_btn.left
 
 		text: "+"
-		style: ButtonStyle {
-			background: Rectangle {
-				gradient: Gradient {
-					GradientStop { position: 0 ; color: control.pressed ? "#fff" : "#feff9c" }
-					GradientStop { position: 1 ; color: control.pressed ? "#fff" : "#feff9c" }
-				}
+		background: Rectangle {
+			gradient: Gradient {
+				GradientStop { position: 0 ; color: add_btn.pressed ? "#fff" : "#feff9c" }
+				GradientStop { position: 1 ; color: add_btn.pressed ? "#fff" : "#feff9c" }
 			}
 		}
 		onClicked: {

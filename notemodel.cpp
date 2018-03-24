@@ -33,8 +33,8 @@ Note Note::load(QString p_id)
 	note.id = p_id;
 	note.text = note_json.value("text").toString();
 	note.title = note_json.value("title").toString();
-	note.x = note_json.value("x").toString().toInt();
-	note.y = note_json.value("y").toString().toInt();
+	note.x = note_json.value("x").toInt();
+	note.y = note_json.value("y").toInt();
 	return note;
 }
 
@@ -43,8 +43,8 @@ void Note::save()
 	QJsonObject note_json;
 	note_json.insert("title", title);
 	note_json.insert("text", text);
-	note_json.insert("x", QString::number(x));
-	note_json.insert("y", QString::number(y));
+	note_json.insert("x", (int)x);
+	note_json.insert("y", (int)y);
 
 	QFile file(storage_location + id);
 	file.open(QIODevice::WriteOnly | QIODevice::Text);

@@ -13,13 +13,14 @@ NotesController::NotesController(QObject *parent) : QObject(parent)
 	m_qml_engine.rootContext()->setContextProperty("notes_controller", this);
 	m_qml_engine.rootContext()->setContextProperty("mouse_position", &mouse_pos_provider);
 
-	for(QString note_name : note_names)
+	for(int i = 0; i < note_names.size(); i++)
 	{
-		Note note = Note::load(note_name);
+		Note note = Note::load(note_names[i]);
 		notes[note.id] = note;
 
 		if (note.text.trimmed().isEmpty()){
 			delete_note(note.id);
+			note_names.erase(note_names.begin() + i);
 			continue;
 		}
 
@@ -34,21 +35,21 @@ NotesController::NotesController(QObject *parent) : QObject(parent)
 
 void NotesController::text_changed(const QString& uuid, const QString& new_text)
 {
-	Note note = notes[uuid];
+	Note& note = notes[uuid];
 	note.text = new_text;
 	note.save();
 }
 
 void NotesController::title_changed(const QString& uuid, const QString& new_title)
 {
-	Note note = notes[uuid];
+	Note& note = notes[uuid];
 	note.title = new_title;
 	note.save();
 }
 
 void NotesController::position_changed(const QString& uuid, int new_x, int new_y)
 {
-	Note note = notes[uuid];
+	Note& note = notes[uuid];
 	note.x = new_x;
 	note.y = new_y;
 	note.save();

@@ -1,6 +1,6 @@
 QT += quick
 CONFIG += c++11
-CONFIG -= qml_debug
+#CONFIG -= qml_debug
 #CONFIG += qtquickcompiler
 
 # The following define makes your compiler emit warnings if you use

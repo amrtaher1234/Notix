@@ -1,6 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.2
 import QtQuick.Controls.Styles 1.4
 
 Window {
@@ -32,14 +32,11 @@ Window {
 		width: parent.width
 		height: parent.height-25
 		wrapMode: Text.WrapAnywhere
-		frameVisible: false
-		Keys.onReleased: notes_controller.text_changed(uuid, this.text)
-		style: TextAreaStyle {
-			textColor: "#333"
-			selectionColor: "steelblue"
-			selectedTextColor: "#eee"
-			backgroundColor: "#feff9c"
-		}
+		onTextChanged: notes_controller.text_changed(uuid, this.text)
+		color: "#333"
+		selectionColor: "steelblue"
+		selectedTextColor: "#eee"
+		background: Rectangle { color: "#feff9c" }
 		text: "";
 
 
